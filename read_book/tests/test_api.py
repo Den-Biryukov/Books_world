@@ -54,3 +54,16 @@ class BooksAPITestCase(APITestCase):
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
         self.assertEqual(4, Book.objects.all().count())
 
+    def test_update(self):
+        url = reverse('book-detail', args=(self.book_1.id,))
+        data = {
+            "name": self.book_1.name,
+            "price": 57,
+            "author_name": self.book_1.author_name
+        }
+        json_data = json.dumps(data)
+        self.client.force_login(self.user)
+        response = self.client.put(url, data=json_data,
+                                   content_type='application/json')
+
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
