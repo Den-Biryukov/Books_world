@@ -117,3 +117,18 @@ class BooksAPITestCase(APITestCase):
 
         self.assertEqual(status.HTTP_204_NO_CONTENT, response.status_code)
 
+    def test_delete_not_owner(self):
+        url = reverse('book-detail', args=(self.book_2.id,))
+        self.client.force_login(self.user)
+        response = self.client.delete(url)
+
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+
+    def test_delete_not_owner_but_staff(self):
+        self.user3 = User.objects.create(username='test_username3',
+                                         is_staff=True)
+        url = reverse('book-detail', args=(self.book_3.id,))
+        self.client.force_login(self.user3)
+        response = self.client.delete(url)
+
+        self.assertEqual(status.HTTP_204_NO_CONTENT, response.status_code)
