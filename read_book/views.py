@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.viewsets import ModelViewSet
 
 from read_book.models import Book
+from read_book.permissions import IsOwnerOrReadOnly
 from read_book.serializers import BooksSerializer
 
 
@@ -12,10 +13,15 @@ class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BooksSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     filter_fields = ['name', 'price', 'author_name'] # по каким полям хотим фильтровать
     search_fields = ['name', 'author_name'] # по каким полям хотим искать
     ordering_fields = ['name', 'price', 'author_name'] # сортировка
+
+    def perform_create(self, serializer):
+        serializer.validated_data['owner'] = self.request.user
+        serializer.save()
+
 
 
 def auth(request):
