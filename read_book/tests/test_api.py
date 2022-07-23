@@ -3,6 +3,7 @@ import json
 from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.exceptions import ErrorDetail
 from rest_framework.test import APITestCase
 from read_book.models import Book
 from read_book.serializers import BooksSerializer
@@ -86,6 +87,8 @@ class BooksAPITestCase(APITestCase):
                                    content_type='application/json')
 
         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+        self.assertEqual({'detail': ErrorDetail(string='You do not have permission to perform this action.',
+                                                code='permission_denied')}, response.data)
         self.book_1.refresh_from_db()
         self.assertEqual(25, self.book_1.price)
 
