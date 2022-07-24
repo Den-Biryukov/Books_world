@@ -7,7 +7,9 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=4, decimal_places=2)
     author_name = models.CharField(max_length=255)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL,
-                              null=True)
+                              null=True, related_name='my_books')
+    readers = models.ManyToManyField(User, through='UserBookRelation',
+                                     related_name='books')
 
     def __str__(self):
         return f'id - {self.id}: name - {self.name}'
@@ -27,3 +29,6 @@ class UserBookRelation(models.Model):
     like = models.BooleanField(default=False)
     is_favorites = models.BooleanField(default=False)
     rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
+
+    def __str__(self):
+        return f'{self.user.username}: {self.book.name}, rating is {self.rate}'
