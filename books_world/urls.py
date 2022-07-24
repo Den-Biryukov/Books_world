@@ -20,7 +20,7 @@ from django.urls import path, include, re_path
 from rest_framework.routers import SimpleRouter
 
 
-from read_book.views import BookViewSet, auth
+from read_book.views_BookViewSet import BookViewSet, auth
 
 router = SimpleRouter()
 
