@@ -21,10 +21,12 @@ from rest_framework.routers import SimpleRouter
 
 
 from read_book.views_BookViewSet import BookViewSet, auth
+from read_book.views_UserBooksRelationView import UserBooksRelationView
 
 router = SimpleRouter()
 
 router.register(r'books', BookViewSet)
+router.register(r'books_relation', UserBooksRelationView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
