@@ -11,9 +11,9 @@ class BookSerializerTestCase(TestCase):
         user3 = User.objects.create(username='user3')
 
         book_1 = Book.objects.create(name='Test book 1', price=25,
-                                     author_name='Author 1')
+                                     author_name='Author 1', content='')
         book_2 = Book.objects.create(name='Test book 2', price=50,
-                                     author_name='Author 2')
+                                     author_name='Author 2', content='')
 
         # Test likes_count for book_1 and book_2
         UserBookRelation.objects.create(user=user1, book=book_1, like=True)
@@ -41,7 +41,8 @@ class BookSerializerTestCase(TestCase):
                 'price': '25.00',
                 'author_name': 'Author 1',
                 'likes_count': 3,
-                'is_favorites_count': 3
+                'is_favorites_count': 3,
+                'content': ''
             },
             {
                 'id': book_2.id,
@@ -49,7 +50,8 @@ class BookSerializerTestCase(TestCase):
                 'price': '50.00',
                 'author_name': 'Author 2',
                 'likes_count': 1,
-                'is_favorites_count': 2
+                'is_favorites_count': 2,
+                'content': ''
             },
         ]
         self.assertEqual(expected_data, data)
