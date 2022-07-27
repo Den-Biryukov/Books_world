@@ -14,6 +14,7 @@ class Book(models.Model):
                                      related_name='books')
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
+    genres = models.ManyToManyField('Genres', blank=True)
 
     def __str__(self):
         return f'id - {self.id}: name - {self.name}'
@@ -50,25 +51,24 @@ class Comment(models.Model):
 
 class Genres(models.Model):
     GENRE_CHOICES = (
-        (1, 'Mystery'),
-        (2, 'Thriller'),
-        (3, 'Horror'),
-        (4, 'Historical'),
-        (5, 'Romance'),
-        (6, 'Western'),
-        (7, 'Bildungsroman'),
-        (8, 'Speculative Fiction'),
-        (9, 'Science Fiction'),
-        (10, 'Fantasy'),
-        (11, 'Dystopian'),
-        (12, 'Magical Realism'),
-        (13, 'Realist Literature'),
-        (14, 'Literary Fiction'),
+        ('mystery', 'Mystery'),
+        ('thriller', 'Thriller'),
+        ('horror', 'Horror'),
+        ('historical', 'Historical'),
+        ('romance', 'Romance'),
+        ('western', 'Western'),
+        ('bildungsroman', 'Bildungsroman'),
+        ('speculative fiction', 'Speculative Fiction'),
+        ('science fiction', 'Science Fiction'),
+        ('fantasy', 'Fantasy'),
+        ('dystopian', 'Dystopian'),
+        ('magical realism', 'Magical Realism'),
+        ('realist literature', 'Realist Literature'),
+        ('literary fiction', 'Literary Fiction'),
     )
-    genre = models.PositiveSmallIntegerField(choices=GENRE_CHOICES,
-                                             blank=True, null=True)
-    book = models.ManyToManyField('Book', blank=True)
+
+    genre = models.CharField(choices=GENRE_CHOICES, blank=True,
+                             max_length=50, unique=True)
 
     def __str__(self):
-        return f'{self.genre}'
-
+        return f'id - {self.id}: {self.genre}'

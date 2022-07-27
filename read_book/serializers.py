@@ -28,3 +28,4 @@ class UserBookRelationSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserBookRelation
         fields = ('book', 'like', 'is_favorites', 'rate')
+
