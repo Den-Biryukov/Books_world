@@ -13,6 +13,6 @@ class BookCreateAPIView(generics.CreateAPIView):
     serializer_class = BookSerializer
 
 
-class BookUpdateAPIView(generics.UpdateAPIView):
+class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
