@@ -3,7 +3,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from read_book.models import Book
-from read_book.pagnation import ListPagination
+from read_book.pagination import ListPagination
 from read_book.permissions import IsOwnerOrReadOnly, IsOwnerOrStaffOrReadOnly
 from read_book.serializer_Book import BookSerializer, BookCreateUpdateSerializer, BookWithFullOwnerSerializer
 
