@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<a href="{% url "social:begin" "github" %}">GitHub</a>
+<div>
+    <a href="{% url "social:begin" "github" %}?next={% firstof request.path 'http://127.0.0.1:8000/api/v1/book/' %}">Log in using GitHub</a>
+</div>
 </body>
 </html>

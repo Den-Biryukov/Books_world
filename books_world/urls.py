@@ -20,7 +20,7 @@ from django.urls import path, include, re_path
 from rest_framework.routers import SimpleRouter
 
 from read_book.views_Book import BookAPIView, BookRetrieveUpdateDestroyAPIView
-from read_book.views_BookViewSet import BookViewSet, auth
+from read_book.views_BookViewSet import BookViewSet, auth_login_github
 from read_book.views_UserBooksRelationView import UserBooksRelationView
 
 router = SimpleRouter()
@@ -31,11 +31,10 @@ router.register(r'books_relation', UserBooksRelationView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/book/', BookAPIView.as_view()),
-    path('api/v1/book/<int:pk>', BookRetrieveUpdateDestroyAPIView.as_view()),
+    path('api/v1/', include('read_book.urls')),
     path('api-auth/', include('rest_framework.urls')),
     re_path('', include('social_django.urls', namespace='social')),
-    path('auth/', auth)
+    path('auth/', auth_login_github)
 ]
 
 urlpatterns += router.urls
