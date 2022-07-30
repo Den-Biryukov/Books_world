@@ -1,4 +1,6 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, mixins
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
@@ -27,6 +29,13 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
             return BookCreateUpdateSerializer
 
     permission_classes = (IsAuthenticatedOrReadOnly, )
+
+    # фильтр, поиск, сортировка
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_fields = ['name', 'price', 'author_name'] # по каким полям хотим фильтровать
+    search_fields = ['name', 'author_name', 'content'] # по каким полям хотим искать
+    ordering_fields = ['name', 'price', 'author_name'] # сортировка
+
     # permission_classes = (IsAuthenticated, )
     pagination_class = ListPagination
     queryset = Book.objects.all()
