@@ -18,8 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.routers import SimpleRouter
-
-from read_book.views_Book import BookAPIView, BookRetrieveUpdateDestroyAPIView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from read_book.views_BookViewSet import BookViewSet, auth_login_github
 from read_book.views_UserBooksRelationView import UserBooksRelationView
 
@@ -34,7 +33,16 @@ urlpatterns = [
     path('api/v1/', include('read_book.urls')),
     path('api-auth/', include('rest_framework.urls')),
     re_path('', include('social_django.urls', namespace='social')),
-    path('auth/', auth_login_github)
+    path('auth_log_github/', auth_login_github),
+
+    # djoser
+    path('api/v1/auth_djoser/', include('djoser.urls')),
+    re_path(r'^auth_djoser/', include('djoser.urls.authtoken')),
+
+    # urls for JWT auth
+    # path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
 
 urlpatterns += router.urls

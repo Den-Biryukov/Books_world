@@ -1,6 +1,6 @@
 from rest_framework import generics, mixins
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from read_book.models import Book
 from read_book.pagination import ListPagination
@@ -27,6 +27,7 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
             return BookCreateUpdateSerializer
 
     permission_classes = (IsAuthenticatedOrReadOnly, )
+    # permission_classes = (IsAuthenticated, )
     pagination_class = ListPagination
     queryset = Book.objects.all()
 
