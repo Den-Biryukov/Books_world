@@ -3,6 +3,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from read_book.models import Book
+from read_book.pagnation import ListPagination
 from read_book.permissions import IsOwnerOrReadOnly, IsOwnerOrStaffOrReadOnly
 from read_book.serializer_Book import BookSerializer, BookCreateUpdateSerializer, BookWithFullOwnerSerializer
 
@@ -26,6 +27,7 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
             return BookCreateUpdateSerializer
 
     permission_classes = (IsAuthenticatedOrReadOnly, )
+    pagination_class = ListPagination
     queryset = Book.objects.all()
 
 
