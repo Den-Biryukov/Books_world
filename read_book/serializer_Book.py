@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
 from read_book.models import Book
-from read_book.serializer_Comments import CommentCreateDeleteSerializer, CommentSerializer
+from read_book.serializer_Comments import CommentSerializer
+from read_book.serializer_genres import GenresSerializer
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -27,6 +28,7 @@ class BookCreateUpdateSerializer(serializers.ModelSerializer):
 class BookWithFullOwnerSerializer(serializers.ModelSerializer):
     owner = serializers.CharField(read_only=True)
     Comments = CommentSerializer(many=True)
+    genres = GenresSerializer(many=True)
 
     class Meta:
         model = Book
