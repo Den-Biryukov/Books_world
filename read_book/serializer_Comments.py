@@ -3,7 +3,7 @@ from read_book.models import MyComments
 
 
 class CommentCreateDeleteSerializer(serializers.ModelSerializer):
-    """Create and delete comment"""
+    """Create or delete comment"""
 
     # owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
@@ -16,6 +16,7 @@ class CommentUpdateSerializer(serializers.ModelSerializer):
     """Update comment"""
 
     owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    book = serializers.CharField(read_only=True)
 
     class Meta:
         model = MyComments

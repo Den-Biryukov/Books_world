@@ -1,7 +1,7 @@
-from rest_framework import mixins
+from rest_framework import mixins, generics
 from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 from .models import MyComments
 from .permissions import IsOwnerOrStaffOrReadOnly, IsOwnerOrReadOnly
@@ -10,10 +10,17 @@ from .serializer_Comments import CommentCreateDeleteSerializer, CommentWithFullO
 from rest_framework.response import Response
 
 
-class CommentCreateView(APIView):
+class CommentListCreateView(generics.ListAPIView):
     """Create comment"""
 
-    permission_classes = (IsAuthenticated, )
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return CommentWithFullOwnerAndBookSerializer
+        else:
+            return CommentCreateDeleteSerializer
+
+    queryset = MyComments.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
     def post(self, request):
         comment = CommentCreateDeleteSerializer(data=request.data)

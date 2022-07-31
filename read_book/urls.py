@@ -2,7 +2,7 @@ from django.urls import path
 from read_book.views_Book import BookAPIView, BookRetrieveUpdateDestroyAPIView, BookListCreateAPIView, \
                                  BookListdetailUpdateAPIView, BookListdetailDeleteAPIVew
 
-from read_book.views_comments import CommentCreateView, CommentDeleteAPIView, CommentUpdateAPIView
+from read_book.views_comments import CommentListCreateView, CommentDeleteAPIView, CommentUpdateAPIView
 
 # Book
 urlpatterns = [
@@ -15,7 +15,7 @@ urlpatterns = [
 
 # Comment
 urlpatterns += [
-    path('comment_create/', CommentCreateView.as_view()),
+    path('comments/', CommentListCreateView.as_view()),
     path('comment_delete/<int:pk>', CommentDeleteAPIView.as_view()),
     path('comment_update/<int:pk>', CommentUpdateAPIView.as_view()),
 ]
