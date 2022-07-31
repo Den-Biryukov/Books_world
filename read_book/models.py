@@ -20,6 +20,16 @@ class Book(models.Model):
         return f'id - {self.id}: name - {self.name}'
 
 
+class MyComments(models.Model):
+    """book comments"""
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField('Comment', max_length=3_000)
+    book = models.ForeignKey(Book, verbose_name='books', on_delete=models.CASCADE, related_name='Comments')
+
+    def __str__(self):
+        return f'{self.id} - {self.owner} - {self.book}'
+
+
 class UserBookRelation(models.Model):
     RATE_CHOICES = (
         (1, 'Very bad'),

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'djoser',
 
     'read_book',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
