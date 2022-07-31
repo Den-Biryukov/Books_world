@@ -2,7 +2,7 @@ from django.urls import path
 from read_book.views_Book import BookAPIView, BookRetrieveUpdateDestroyAPIView, BookListCreateAPIView, \
                                  BookListdetailUpdateAPIView, BookListdetailDeleteAPIVew
 
-from read_book.views_comments import CommentListCreateView, CommentDeleteAPIView, CommentUpdateAPIView
+from read_book.views_Comments import CommentListCreateView, CommentDeleteAPIView, CommentUpdateAPIView
 
 # Book
 urlpatterns = [

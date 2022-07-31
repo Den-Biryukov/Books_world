@@ -1,16 +1,15 @@
 from rest_framework import mixins, generics
 from rest_framework.generics import GenericAPIView
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import MyComments
+from .pagination import ListPagination
 from .permissions import IsOwnerOrStaffOrReadOnly, IsOwnerOrReadOnly
-from .serializer_Comments import CommentCreateDeleteSerializer, CommentWithFullOwnerAndBookSerializer, \
-    CommentUpdateSerializer
-from rest_framework.response import Response
+from .serializer_comments import CommentCreateDeleteSerializer, CommentWithFullOwnerAndBookSerializer, \
+                                 CommentUpdateSerializer
 
 
-class CommentListCreateView(generics.ListAPIView):
+
+class CommentListCreateView(generics.ListAPIView, generics.ListCreateAPIView):
     """Create comment"""
 
     def get_serializer_class(self):
@@ -20,13 +19,8 @@ class CommentListCreateView(generics.ListAPIView):
             return CommentCreateDeleteSerializer
 
     queryset = MyComments.objects.all()
+    pagination_class = ListPagination
     permission_classes = (IsAuthenticatedOrReadOnly, )
-
-    def post(self, request):
-        comment = CommentCreateDeleteSerializer(data=request.data)
-        if comment.is_valid():
-            comment.save()
-        return Response(status=201)
 
 
 class CommentDeleteAPIView(mixins.RetrieveModelMixin,

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from read_book.models import Book
-from read_book.serializer_Comments import CommentSerializer
+from read_book.serializer_comments import CommentSerializer
 from read_book.serializer_genres import GenresSerializer
 
 
