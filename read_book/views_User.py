@@ -47,13 +47,13 @@ class UserDetailLikesAPIView(generics.ListAPIView):
     """display user likes for books"""
 
     def get(self, request, pk):
-        users = User.objects.get(id=pk).likes.all()
-        return Response({'user': LikeSerializer(users, many=True).data})
+        user = User.objects.get(id=pk).likes.all()
+        return Response({f'{self.request.user}': LikeSerializer(user, many=True).data})
 
 
 class UserDetailRatingAPIView(generics.ListAPIView):
     """display user rating for books"""
 
     def get(self, request, pk):
-        users = User.objects.get(id=pk).rating.all()
-        return Response({'user': RatingSerializer(users, many=True).data})
+        user = User.objects.get(id=pk).rating.all()
+        return Response({f'{self.request.user}': RatingSerializer(user, many=True).data})

@@ -1,16 +1,14 @@
 from django.urls import path
 from read_book.views_Book import BookAPIView, BookRetrieveUpdateDestroyAPIView, BookListCreateAPIView, \
     BookListdetailUpdateAPIView, BookListdetailDeleteAPIVew
-
 from read_book.views_Comments import CommentListCreateView, CommentDeleteAPIView, CommentUpdateAPIView
-
 from read_book.views_Likes import LikeCreateAPIView, LikeDeleteAPIView
-
-# Book
 from read_book.views_Rating import RatingCreateAPIView, RatingDeleteAPIView
 from read_book.views_User import AllUsersForStaffListAPIView, UserDetailLikesAPIView, UserListAPIView, \
     UserDetailForStaffListAPIView, UserDetailListAPIView, UserDetailRatingAPIView
 
+
+# Book
 urlpatterns = [
     # path('book/', BookAPIView.as_view()),
     path('book/', BookListCreateAPIView.as_view()),

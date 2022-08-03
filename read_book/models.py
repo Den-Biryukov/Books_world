@@ -3,6 +3,8 @@ from django.db import models
 
 
 class Book(models.Model):
+    """Book"""
+
     name = models.CharField(max_length=255, unique=True)
     content = models.TextField(blank=True)
     price = models.DecimalField(max_digits=4, decimal_places=2)
@@ -21,7 +23,8 @@ class Book(models.Model):
 
 
 class MyComments(models.Model):
-    """book comments"""
+    """Book comments"""
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField('Comment', max_length=3_000)
     book = models.ForeignKey(Book, verbose_name='books', on_delete=models.CASCADE, related_name='Comments')
@@ -60,6 +63,8 @@ class Comment(models.Model):
 
 
 class Genres(models.Model):
+    """Book genres"""
+
     GENRE_CHOICES = (
         ('mystery', 'Mystery'),
         ('thriller', 'Thriller'),
@@ -85,6 +90,8 @@ class Genres(models.Model):
 
 
 class Like(models.Model):
+    """Book likes"""
+
     like = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
@@ -97,6 +104,8 @@ class Like(models.Model):
 
 
 class Rating(models.Model):
+    """Book rating"""
+
     RATE_CHOICES = (
         (1, 'Very bad'),
         (2, 'Bad'),
