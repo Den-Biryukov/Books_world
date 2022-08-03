@@ -7,4 +7,4 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = '__all__'
+        exclude = ('id',)

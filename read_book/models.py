@@ -86,7 +86,7 @@ class Genres(models.Model):
 
 class Like(models.Model):
     like = models.BooleanField(default=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     class Meta:
@@ -106,7 +106,7 @@ class Rating(models.Model):
     )
 
     rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rating')
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     class Meta:

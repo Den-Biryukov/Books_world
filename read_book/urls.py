@@ -8,7 +8,8 @@ from read_book.views_Likes import LikeCreateAPIView, LikeDeleteAPIView
 
 # Book
 from read_book.views_Rating import RatingCreateAPIView, RatingDeleteAPIView
-from read_book.views_User import AllUsersDetailListAPIView
+from read_book.views_User import AllUsersForStaffListAPIView, UserDetailLikesAPIView, UserListAPIView, \
+    UserDetailForStaffListAPIView, UserDetailListAPIView, UserDetailRatingAPIView
 
 urlpatterns = [
     # path('book/', BookAPIView.as_view()),
@@ -29,6 +30,7 @@ urlpatterns += [
 urlpatterns += [
     path('like_create/', LikeCreateAPIView.as_view()),
     path('like_delete/<int:pk>', LikeDeleteAPIView.as_view()),
+    path('user/<int:pk>/likes', UserDetailLikesAPIView.as_view()),
 ]
 
 # Rating
@@ -39,5 +41,10 @@ urlpatterns += [
 
 # User
 urlpatterns += [
-    path('all_users_detail/', AllUsersDetailListAPIView.as_view()),
+    path('all_users_staff/', AllUsersForStaffListAPIView.as_view()),
+    path('all_users/', UserListAPIView.as_view()),
+    path('user_staff/<int:pk>', UserDetailForStaffListAPIView.as_view()),
+    path('user/<int:pk>', UserDetailListAPIView.as_view()),
+    path('user/<int:pk>/likes', UserDetailLikesAPIView.as_view()),
+    path('user/<int:pk>/rating', UserDetailRatingAPIView.as_view()),
 ]
