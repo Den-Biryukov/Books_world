@@ -48,7 +48,7 @@ class UserBookRelation(models.Model):
     def __str__(self):
         return f'{self.user.username}: {self.book.name}, rating is {self.rate}'
 
-
+# старая модель комментариев
 class Comment(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     book = models.ForeignKey(Book, on_delete=models.CASCADE, blank=False, null=False, related_name='comments')
@@ -82,3 +82,32 @@ class Genres(models.Model):
 
     def __str__(self):
         return f'id - {self.id}: {self.genre}'
+
+
+class Like(models.Model):
+    like = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('like', 'user', 'book')
+
+    def __str__(self):
+        return f'user: {self.user}; book: {self.book}; like: {self.like}'
+
+
+class Rating(models.Model):
+    RATE_CHOICES = (
+        (1, 'Very bad'),
+        (2, 'Bad'),
+        (3, 'OK'),
+        (4, 'COOL'),
+        (5, 'AMAZING')
+    )
+
+    rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'book')

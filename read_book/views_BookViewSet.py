@@ -20,8 +20,3 @@ class BookViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.validated_data['owner'] = self.request.user
         serializer.save()
-
-
-
-def auth_login_github(request):
-    return render(request, 'oauth.html')

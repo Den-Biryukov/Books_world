@@ -19,7 +19,9 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.routers import SimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
-from read_book.views_BookViewSet import BookViewSet, auth_login_github
+
+from read_book.authorization_oauth import auth_login_github
+from read_book.views_BookViewSet import BookViewSet
 from read_book.views_UserBooksRelationView import UserBooksRelationView
 
 router = SimpleRouter()
