@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from read_book.models import Book, UserBookRelation
 
-
+# old tests
 class BooksRelationTestCase(APITestCase):
 
     def setUp(self):

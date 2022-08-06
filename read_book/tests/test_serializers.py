@@ -3,7 +3,7 @@ from django.test import TestCase
 from read_book.models import Book, UserBookRelation
 from read_book.serializers import BooksSerializer
 
-
+# old tests
 class BookSerializerTestCase(TestCase):
     def test_ok(self):
         user1 = User.objects.create(username='user1')

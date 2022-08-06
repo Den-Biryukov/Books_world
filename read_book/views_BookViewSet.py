@@ -7,7 +7,7 @@ from read_book.models import Book
 from read_book.permissions import IsOwnerOrStaffOrReadOnly
 from read_book.serializers import BooksSerializer
 
-
+# old view
 class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BooksSerializer

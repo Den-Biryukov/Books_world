@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from read_book.models import UserBookRelation
 from read_book.serializers import UserBookRelationSerializer
 
-
+# old view
 class UserBooksRelationView(UpdateModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     queryset = UserBookRelation.objects.all()

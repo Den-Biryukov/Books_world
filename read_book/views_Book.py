@@ -8,7 +8,7 @@ from read_book.models import Book
 from read_book.pagination import ListPagination
 from read_book.permissions import IsOwnerOrReadOnly, IsOwnerOrStaffOrReadOnly
 from read_book.serializer_Book import BookSerializer, BookCreateUpdateSerializer, BookWithFullOwnerSerializer
-
+from .tasks import clear_books
 
 
 class BookAPIView(generics.ListCreateAPIView):
@@ -23,6 +23,9 @@ class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 class BookListCreateAPIView(generics.ListCreateAPIView):
 
+    def get(self, request, *args, **kwargs):
+        clear_books.delay()
+        return self.list(request, *args, **kwargs)
 
     def get_serializer_class(self):
         if self.request.method == 'GET':

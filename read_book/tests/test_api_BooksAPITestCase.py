@@ -8,7 +8,7 @@ from rest_framework.test import APITestCase
 from read_book.models import Book
 from read_book.serializers import BooksSerializer
 
-
+# old tests
 class BooksAPITestCase(APITestCase):
 
     def setUp(self):
