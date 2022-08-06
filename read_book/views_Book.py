@@ -23,9 +23,9 @@ class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 class BookListCreateAPIView(generics.ListCreateAPIView):
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         clear_books.delay()
-        return self.list(request, *args, **kwargs)
+        return self.create(request, *args, **kwargs)
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
