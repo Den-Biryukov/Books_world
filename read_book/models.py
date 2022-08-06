@@ -32,7 +32,7 @@ class MyComments(models.Model):
     def __str__(self):
         return f'{self.id} - {self.owner} - {self.book}'
 
-
+# старая модель
 class UserBookRelation(models.Model):
     RATE_CHOICES = (
         (1, 'Very bad'),
