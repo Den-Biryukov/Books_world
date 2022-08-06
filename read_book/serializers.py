@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from read_book.models import Book, UserBookRelation
 
-
+# старый сериализатор
 class BooksSerializer(serializers.ModelSerializer):
 
     likes_count = serializers.SerializerMethodField()
