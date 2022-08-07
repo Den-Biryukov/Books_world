@@ -3,7 +3,6 @@ from rest_framework import generics, mixins, viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-
 from read_book.models import Book
 from read_book.pagination import ListPagination
 from read_book.permissions import IsOwnerOrReadOnly, IsOwnerOrStaffOrReadOnly

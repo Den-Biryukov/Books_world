@@ -6,6 +6,7 @@ from .pagination import ListPagination
 from .permissions import IsOwnerOrStaffOrReadOnly, IsOwnerOrReadOnly
 from .serializer_comments import CommentCreateDeleteSerializer, CommentWithFullOwnerAndBookSerializer, \
                                  CommentUpdateSerializer
+from .tasks import clear_comments
 
 
 
@@ -17,6 +18,10 @@ class CommentListCreateView(generics.ListAPIView, generics.ListCreateAPIView):
             return CommentWithFullOwnerAndBookSerializer
         else:
             return CommentCreateDeleteSerializer
+
+    def post(self, request, *args, **kwargs):
+        clear_comments.delay()
+        return self.create(request, *args, **kwargs)
 
     queryset = MyComments.objects.all()
     pagination_class = ListPagination
