@@ -3,8 +3,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 from read_book.pagination import ListPagination
 from read_book.permissions import IsStaff
-from read_book.serializer_Likes import LikeSerializer
-from read_book.serializer_Rating import RatingSerializer
+from read_book.serializer_Likes import LikeFullNameOfBookSerializer
+from read_book.serializer_Rating import RatingFullNameOfBookSerializer
 from read_book.serializer_User import UserDetailSerializer, UserSerializer
 
 
@@ -47,13 +47,15 @@ class UserDetailLikesAPIView(generics.ListAPIView):
     """display user likes for books"""
 
     def get(self, request, pk):
-        user = User.objects.get(id=pk).likes.all()
-        return Response({f'{self.request.user}': LikeSerializer(user, many=True).data})
+        user_likes_all = User.objects.get(id=pk).likes.all()
+        user = User.objects.get(id=pk)
+        return Response({f'{user}': LikeFullNameOfBookSerializer(user_likes_all, many=True).data})
 
 
 class UserDetailRatingAPIView(generics.ListAPIView):
     """display user rating for books"""
 
     def get(self, request, pk):
-        user = User.objects.get(id=pk).rating.all()
-        return Response({f'{self.request.user}': RatingSerializer(user, many=True).data})
+        user_rating_all = User.objects.get(id=pk).rating.all()
+        user = User.objects.get(id=pk)
+        return Response({f'{user}': RatingFullNameOfBookSerializer(user_rating_all, many=True).data})

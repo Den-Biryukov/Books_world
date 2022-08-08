@@ -38,7 +38,7 @@ class BookWithFullOwnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ('id', 'name', 'author_name', 'price', 'owner', 'content', 'comments_count', 'Comments', 'genres',
-                  'time_create', 'time_update', 'readers', 'likes_count', 'rating')
+                  'time_create', 'time_update', 'likes_count', 'rating')
 
     def get_likes_count(self, instance):
         return Like.objects.filter(book=instance,
